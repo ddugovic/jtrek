@@ -10,14 +10,14 @@ JavaTrek is based on Chuck L. Peterson's MTrek.
 JavaTrek is a real time space combat simulator. Controlled via a keyboard through a telnet interface, you can choose from a variety of ships to battle it out for gold in a text based 3d environment.
 
 Requirements:
-Java Runtime Environment or SDK 1.6.0 or better.
-MySQL database accessible from the machine running the server.
+Java Runtime Environment or SDK 1.8.0 or better.
+MySQL or PostgreSQL database accessible from the machine running the server.
 
 Running JavaTrek:
 1. Download and install a compatible version of the Java Runtime Environment or SDK.  (See above.)
-2. Create your MySQL/PostgreSQL database and note it's server, username, password and database name.
+2. Create your MySQL or PostgreSQL database and note its server, username, password and database name.
 3. Execute the appropriate jtrek_tables.sql-xxxxxxx file inside the database so that the table structure is created.
-4. Make a copy of "jtrek.properties.blank" and name it "jtrek.properties".  Update the jdbc.driver, jdbc.url, jdbc.user and jdbc.password fields.  Save the file.
+4. Make a copy of "jtrek.properties-postgresql" and name it "jtrek.properties".  Update the jdbc.driver, jdbc.url, jdbc.user and jdbc.password fields.  Save the file.
 
 WINDOWS:
 Ensure that the bin/ folder in your Java JRE is in your system path.

@@ -1,0 +1,34 @@
+<project>
+
+    <path id="classpath">
+        <fileset dir="lib" includes="*.jar"/>
+    </path>
+
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="bin/classes"/>
+        <javac srcdir="src" destdir="bin/classes" classpathref="classpath"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="bin"/>
+        <jar destfile="bin/javatrek.jar" basedir="bin/classes">
+            <manifest>
+                <attribute name="Main-Class" value="org.gamehost.jtrek.javatrek.TrekMain"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run" depends="jar">
+        <java classname="org.gamehost.jtrek.javatrek.TrekMain">
+            <classpath>
+                <path location="bin/javatrek.jar"/>
+                <path refid="classpath"/>
+            </classpath>
+        </java>
+    </target>
+
+</project>

@@ -3,16 +3,17 @@
 # JDBC Connection Settings
 #
 # jdbc.url is the url for your database.
-jdbc.url=
+jdbc.url=localhost:5432
 
 # jdbc.driver is the driver for your database
-jdbc.driver=
+jdbc.driver=org.postgresql.Driver
 
+# See http://stackoverflow.com/a/4562599 for how to connect without a password
 # jdbc.user is the username for your database.
-jdbc.user=
+#jdbc.user=
 
 # jdbc.password is the password for the account.
-jdbc.password=
+#jdbc.password=
 
 ##########################################
 # Startup options

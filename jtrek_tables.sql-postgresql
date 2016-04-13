@@ -3,9 +3,6 @@ CREATE TABLE ceasefire (
   ship_id integer NOT NULL DEFAULT 0
 );
 
-ALTER TABLE ceasefire
-  OWNER TO postgres;
-
 CREATE SEQUENCE connection_seq;
 
 CREATE TABLE connections (
@@ -17,9 +14,6 @@ CREATE TABLE connections (
   connection_end timestamp without time zone NOT NULL DEFAULT '1000-01-01 00:00:00',
   CONSTRAINT pkconnections_connectionid PRIMARY KEY (connection_id)
 );
-
-ALTER TABLE connections
-  OWNER TO postgres;
 
 CREATE INDEX connections_playerid
   ON connections
@@ -111,9 +105,6 @@ CREATE TABLE ctfships (
   CONSTRAINT pkctfships_shipid PRIMARY KEY (ship_id)
 );
 
-ALTER TABLE ctfships
-  OWNER TO postgres;
-
 CREATE INDEX ctfships_shipclass_shipgold
  ON ctfships
  USING btree (ship_class, ship_gold);
@@ -165,9 +156,6 @@ CREATE TABLE keymaps (
   CONSTRAINT pkkeymaps_playerid PRIMARY KEY (player_id)
 );
 
-ALTER TABLE keymaps
-  OWNER TO postgres;
-  
 CREATE INDEX keymaps_playerid_shipclass
  ON keymaps
  USING btree (player_id, ship_class);
@@ -191,9 +179,6 @@ CREATE TABLE players (
   CONSTRAINT pkplayers_playerid PRIMARY KEY (player_id)
 );
 
-ALTER TABLE players
-  OWNER TO postgres;
-  
 CREATE INDEX players_playername
   ON players
   USING btree (player_name);
@@ -283,9 +268,6 @@ CREATE TABLE ships (
   ship_macros bytea,
   CONSTRAINT pkships_shipid PRIMARY KEY (ship_id)
 );
-
-ALTER TABLE ships
-  OWNER TO postgres;
 
 CREATE INDEX ships_shipclass_shipgold
  ON ships

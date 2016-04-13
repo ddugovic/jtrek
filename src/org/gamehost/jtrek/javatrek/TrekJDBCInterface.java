@@ -38,8 +38,6 @@ public class TrekJDBCInterface {
     // read URL and JDBC driver settings from a properties file
     private static final String jdbcURL = tpr.getValue("jdbc.url");
     private static final String jdbcDriver = tpr.getValue("jdbc.driver");
-    private static final String jdbcUser = tpr.getValue("jdbc.user");
-    private static final String jdbcPwd = tpr.getValue("jdbc.password");
 
     private Connection myCon;
     private ResultSet rs;
@@ -64,10 +62,10 @@ public class TrekJDBCInterface {
 
         // establish connection
         try {
-            myCon = DriverManager.getConnection(jdbcURL, jdbcUser, jdbcPwd);
+            myCon = DriverManager.getConnection(jdbcURL);
             isPostgres = jdbcDriver.toLowerCase().contains("postgres");
         } catch (SQLException SQLe) {
-            TrekLog.logError("*** ERROR ***   Problems connecting to " + jdbcURL + ": as " + jdbcUser + "/" + jdbcPwd);
+            TrekLog.logError("*** ERROR ***   Problems connecting to " + jdbcURL);
             TrekLog.logError("SQL State: " + SQLe.getSQLState());
             TrekLog.logException(SQLe);
 
@@ -1175,7 +1173,7 @@ public class TrekJDBCInterface {
 
         try {
             if (myCon.isClosed()) {
-                myCon = DriverManager.getConnection(jdbcURL, jdbcUser, jdbcPwd);
+                myCon = DriverManager.getConnection(jdbcURL);
             }
 
             PreparedStatement addAttkr = myCon.prepareStatement("INSERT INTO ceasefire (object_name, ship_id) VALUES ( ?, ? )");
@@ -1194,7 +1192,7 @@ public class TrekJDBCInterface {
 
         try {
             if (myCon.isClosed()) {
-                myCon = DriverManager.getConnection(jdbcURL, jdbcUser, jdbcPwd);
+                myCon = DriverManager.getConnection(jdbcURL);
             }
 
             PreparedStatement delAttkr = myCon.prepareStatement("DELETE FROM ceasefire WHERE object_name = ? AND ship_id = ?");
