@@ -139,6 +139,7 @@ public final class TrekServer extends Thread {
             TrekQuadrant quadrant = new TrekQuadrant(this);
 
             quadrant.name = "Alpha Quadrant";
+            dbInt.loadPlanetRecords(quadrant);
             quadrant.addObject(new TrekStarbase(-6150, -13432, -300, "Spacelab Regula 1", "1", "L M D ", 2000, 100, 1));
             quadrant.addObject(new TrekStarbase(7803, -10300, -6540, "Starbase 2", "2", "T ", 2000, 100, 1));
             quadrant.addObject(new TrekStarbase(-6000, 10020, 900, "Starbase 3", "3", "L M D ", 2000, 100, 1));
@@ -154,26 +155,13 @@ public final class TrekServer extends Thread {
             quadrant.addObject(new TrekBlackhole(-34052, -17084, 2112, "Cygnus X-1", "c",
                     new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "d",
                             "e", "f", "g", "j", "k", "n", "o", "p", "q", "r", "t", "v", "w"}));
-            quadrant.addObject(new TrekPlanet(-20320, -21344, -1200, "Delta Vega", "d", "C M D ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(2000, 2025, 220, "Earth", "e", "A TW ", "Earth", 2000, 100, 1));
             quadrant.addObject(new TrekZone(-18000, 4000, 6000, "Organia", "f", 2000, TrekZone.OBJ_ORGANIA));
-            quadrant.addObject(new TrekPlanet(-10000, -36020, -4060, "Gorn", "g", "A ", "Gorn", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(139519, -115152, 111346, "Hyperion", "h", "C A ", "", 2000, 100, 1));
             //quadrant.addObject(new TrekComet(100000, 100000, 100000, "Comet Icarus", "i"));
             quadrant.addObject(new TrekComet(8100, 0, 40, 10000, 20341, false, "Comet Icarus 4", "i"));
-            quadrant.addObject(new TrekPlanet(-21200, -23040, -4020, "Deneva", "j", "T ", "", 2000, 100, 1));
-            quadrant.addObject(new PlanetKlinzhai(36030, -18080, 3000, "Klinzhai", "k", "A ", "Klinzhai", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(139988, -114758, 111123, "Lusus Minor", "l", "L T ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(136030, -118080, 113000, "Magrathea", "m", "M D ", "", 2000, 100, 1));
             quadrant.addObject(new TrekZone(-6003, -10300, -6540, "Mutara Nebula", "n", 5000, TrekZone.OBJ_NEBULA));
-            quadrant.addObject(new TrekPlanet(-39700, 16341, 7000, "Orion", "o", "A ", "Orion", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(8100, -20341, 40, "Wrigley", "p", "C ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(-17700, -9341, 3400, "Rigel XII", "q", "C ", "", 2000, 100, 1));
-            quadrant.addObject(new PlanetRomulus(20100, 29200, -3230, "Romulus", "r", "A FC ", "Romulus", 2000, 100, 1));
             quadrant.addObject(new TrekZone(136500, -119962, 123574, "Sargasso Nebula", "s", 3500, TrekZone.OBJ_NEBULA));
             quadrant.addObject(new TrekZone(-40003, 6032, -2030, "Tholean Space", "t", 2000, TrekZone.OBJ_ZONE));
             quadrant.addObject(new TrekStarbase(134820, -117517, 109320, "Ursus Outpost", "u", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(6053, 20747, 2980, "Vulcan", "v", "C ", "", 2000, 100, 1));
             quadrant.addObject(new TrekWormhole(3, -7, 2, "Worm Hole", "w"));
             Random gen = new Random();
             quadrant.addObject(new TrekSpatialAnomaly(gen.nextInt() % 100000, gen.nextInt() % 100000, gen.nextInt() % 100000, "Spatial Anomaly", "W"));
@@ -191,6 +179,7 @@ public final class TrekServer extends Thread {
 
             quadrant = new TrekQuadrant(this);
             quadrant.name = "Beta Quadrant";
+            dbInt.loadPlanetRecords(quadrant);
             quadrant.addObject(new TrekStarbase(4016, 13407, -8936, "Starbase 11", "1", "L M D ", 2000, 100, 1));
             quadrant.addObject(new TrekStarbase(26200, 9680, 6470, "Starbase 12", "2", "T ", 2000, 100, 1));
             quadrant.addObject(new TrekStarbase(8150, -10940, -29460, "Starbase 13", "3", "L M D ", 2000, 100, 1));
@@ -201,35 +190,16 @@ public final class TrekServer extends Thread {
             quadrant.addObject(new TrekStarbase(-18913, 11802, -16036, "Starbase 18", "8", "T ", 2000, 100, 1));
             quadrant.addObject(new TrekStarbase(-16402, 22795, 9968, "Starbase 19", "9", "L M D ", 2000, 100, 1));
             quadrant.addObject(new TrekStarbase(207, 26501, 7573, "Starbase 20", "0", "T ", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(-15350, 2440, 6080, "Arrakis", "a", "C ", "", 2000, 100, 1));
-            quadrant.addObject(new PlanetWarring(-8970, 25670, -23180, "Brachistochrone", "b", "T N I MB ", "", 2000, 100, 1));
             quadrant.addObject(new TrekBlackhole(-22600, -27410, -6530, "Cygnus X-2", "c",
                     new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "d",
                             "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
                             "u", "v", "w", "x", "y", "z"}));
-            quadrant.addObject(new TrekPlanet(1280, 24120, 21070, "Dana Planet", "d", "A ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(-2050, -5460, -17900, "Encinitas", "e", "None ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(18810, -1990, 5720, "Fomalhaut", "f", "None ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(-602, 8647, -1772, "Gauss", "g", "T ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(-19340, -18190, -20150, "Hawserion", "h", "C ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(20850, 7120, -1080, "Ion", "i", "FC ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(-4290, -7570, 9020, "Jovia", "j", "None ", "", 2000, 100, 1));
             quadrant.addObject(new TrekZone(29700, 22220, -10670, "Kali Asteroid Zone", "k", 3000, TrekZone.OBJ_ASTEROIDBELT));
-            quadrant.addObject(new TrekPlanet(-7800, -6240, -21610, "Lethargy", "l", "", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(-23450, 27700, 26460, "Malibu Beta 6", "m", "A ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(2512, 5004, -3198, "Newtonium", "n", "M A ", "Klinzhai", 2000, 100, 1));
             quadrant.addObject(new TrekStarbase(-16420, -1630, 12290, "Orion Outpost", "o", "None ", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(28620, -15180, 10970, "Pleasure Planet", "p", "C ", "", 2000, 100, 1));
             quadrant.addObject(new TrekZone(6330, 21880, -14960, "Quasar Epsilon", "q", 4000, TrekZone.OBJ_QUASAR));
             quadrant.addObject(new TrekZone(1743, -26267, -16435, "Rama Pulsar", "r", 4000, TrekZone.OBJ_PULSAR));
             quadrant.addObject(new TrekZone(12460, 27570, -8110, "Shiva Nebula", "s", 3500, TrekZone.OBJ_NEBULA));
-            quadrant.addObject(new PlanetWarring(-10000, 21670, -10250, "Tautochrone", "t", "C M D ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(17230, -6660, 8420, "Uhura", "u", "None ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(4459, 9388, -362, "Vishnu", "v", "C D ", "", 5000, 100, 1));
             quadrant.addObject(new TrekWormhole(12, -19, 5, "Worm Hole", "w"));
-            quadrant.addObject(new TrekPlanet(-20940, 7900, -28990, "Planet X-Beta", "x", "None ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(-24160, -7080, 19630, "Yaxci", "y", "None ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(20750, -12450, 7020, "Planet Z-Beta", "z", "None ", "", 2000, 100, 1));
 
             // set warring planets' target; brach hates taut, taut hates brach
             PlanetWarring pw = (PlanetWarring) quadrant.getObjectByScanLetter("b");
@@ -241,6 +211,7 @@ public final class TrekServer extends Thread {
 
             quadrant = new TrekQuadrant(this);
             quadrant.name = "Gamma Quadrant";
+            dbInt.loadPlanetRecords(quadrant);
             quadrant.addObject(new TrekStarbase(-10860, 9250, -5420, "Starbase 21", "1", "L M D ", 2000, 100, 1));
             quadrant.addObject(new TrekStarbase(26850, 29350, 4140, "Starbase 22", "2", "T ", 2000, 100, 1));
             quadrant.addObject(new TrekStarbase(31150, 37900, 3890, "Starbase 23", "3", "L M D ", 2000, 100, 1));
@@ -251,32 +222,19 @@ public final class TrekServer extends Thread {
             quadrant.addObject(new TrekStarbase(4650, -19120, -28250, "Starbase 28", "8", "T ", 2000, 100, 1));
             quadrant.addObject(new TrekStarbase(3600, -11770, -21750, "Starbase 29", "9", "L M D ", 2000, 100, 1));
             quadrant.addObject(new TrekStarbase(34050, -10640, 900, "Starbase 30", "0", "T ", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(7841, 27048, 17639, "Alpha Centauri", "a", "M D ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(10974, 30019, 21137, "Bajor", "b", "T ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(13710, 10000, -7950, "Cardassia", "c", "A ", "Cardassia", 2000, 100, 1));
             quadrant.addObject(new TrekZone(-22840, 11790, -6390, "Deneb Nebula", "d", 4000, TrekZone.OBJ_NEBULA));
             quadrant.addObject(new TrekZone(-18930, 11290, -9010, "Encaladus Quasar", "e", 4000, TrekZone.OBJ_QUASAR));
-            quadrant.addObject(new TrekPlanet(35450, 33250, 2420, "Ferrigulum", "f", "C A FR CM ", "Ferrigulum", 2000, 100, 1));
             quadrant.addObject(new TrekZone(23600, 24140, -16930, "Galileo Asteroids", "g", 3000, TrekZone.OBJ_ASTEROIDBELT));
             quadrant.addObject(new TrekComet(17542, 5798, 17348, "Halley's Comet", "h"));
-            quadrant.addObject(new TrekPlanet(20030, 2320, -21220, "Irata Carinae", "i", "", "", 2000, 100, 1));
             quadrant.addObject(new TrekZone(-21250, 5950, -12210, "Juno Asteroid Zone", "j", 5000, TrekZone.OBJ_ASTEROIDBELT));
             quadrant.addObject(new TrekComet(31064, -10048, 2841, "Kahoutek Comet", "k"));
             quadrant.addObject(new TrekZone(32950, 35750, 2190, "Lagoon Nebula", "l", 4000, TrekZone.OBJ_NEBULA));
-            quadrant.addObject(new PlanetMegadon(30040, -4600, -350, "Megadon", "m", "C M D T A ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(-23950, 12560, -4790, "Nebulon", "n", "C ", "", 2000, 100, 1));
             quadrant.addObject(new TrekZone(7050, -13570, -25250, "Orion Nebula", "o", 6000, TrekZone.OBJ_NEBULA));
-            quadrant.addObject(new TrekPlanet(4450, -7720, -17970, "Praxis", "p", "C A ", "", 2000, 100, 1));
             quadrant.addObject(new TrekZone(33050, -11640, 1130, "Quasar 3C 273", "q", 4000, TrekZone.OBJ_QUASAR));
             quadrant.addObject(new TrekZone(8410, 11860, 9890, "Rosette Nebula", "r", 2500, TrekZone.OBJ_NEBULA));
-            quadrant.addObject(new TrekPlanet(-14310, -8550, 10290, "Sagittarius", "s", "M ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(11795, 25850, 15998, "Triangulum", "t", "C ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(24970, -21080, -35270, "Uranus Cygni", "u", "", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(-6060, 19150, 5540, "Vidicon Beta", "v", "FC ", "", 2000, 100, 1));
             quadrant.addObject(new TrekWormhole(0, 0, 1, "Worm Hole", "w"));
             quadrant.addObject(new TrekZone(29200, 31050, 4740, "Xakaar Pulsar", "x", 4000, TrekZone.OBJ_PULSAR));
             quadrant.addObject(new TrekZone(1900, -15820, -24800, "Yxk Asteroid Zone", "y", 5000, TrekZone.OBJ_ASTEROIDBELT));
-            quadrant.addObject(new TrekPlanet(-15810, 35290, -16740, "Zwicky", "z", "", "", 2000, 100, 1));
             quadrant.addObject(new TrekBlackhole(-34052, -17084, 2112, "Cygnus X-3", "C",
                     new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d",
                             "e", "f", "g", "i", "j", "l", "m", "n", "o", "p", "q", "r", "s", "t",
@@ -285,6 +243,7 @@ public final class TrekServer extends Thread {
 
             quadrant = new TrekQuadrant(this);
             quadrant.name = "Omega Quadrant";
+            dbInt.loadPlanetRecords(quadrant);
             quadrant.addObject(new TrekStarbase(2399, -5793, 15137, "Starbase 31", "1", "L M D ", 2000, 100, 1));
             quadrant.addObject(new TrekStarbase(0, -11585, 11585, "Starbase 32", "2", "T ", 2000, 100, 1));
             quadrant.addObject(new TrekStarbase(11585, 0, 11585, "Starbase 33", "3", "L M D ", 2000, 100, 1));
@@ -295,75 +254,41 @@ public final class TrekServer extends Thread {
             quadrant.addObject(new TrekStarbase(-11585, 0, -11585, "Starbase 38", "8", "T ", 2000, 100, 1));
             quadrant.addObject(new TrekStarbase(0, -11585, -11585, "Starbase 39", "9", "L M D ", 2000, 100, 1));
             quadrant.addObject(new TrekStarbase(-2399, -5793, -15137, "Starbase 40", "0", "T ", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(5793, -2399, -15137, "Aay'diemm III-A", "a", "", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(-5793, -2399, 15137, "Beta Carotene", "b", "FC ", "", 2000, 100, 1));
             quadrant.addObject(new TrekBlackhole(-15137, 4356, 6270, "Cygnus X-4", "c",
                     new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "d",
                             "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
                             "u", "v", "w", "x", "y", "z"}));
-            quadrant.addObject(new TrekPlanet(-9448, -9448, 8928, "Dandelion Outpost", "d", "A ", "Romulus", 2000, 100, 1));
             quadrant.addObject(new TrekZone(10703, 4433, 2450, "Elysian Asteroids", "e", 3500, TrekZone.OBJ_ASTEROIDBELT));
-            quadrant.addObject(new TrekPlanet(0, -15760, 3135, "Frogstar Outpost", "f", "A", "Gorn", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(11144, -11144, -3135, "Gagaran Outpost", "g", "A ", "Earth", 2000, 100, 1));
             quadrant.addObject(new TrekZone(285, -7379, 6270, "Helix Nebula", "h", 3500, TrekZone.OBJ_NEBULA));
-            quadrant.addObject(new TrekPlanet(768, 5206, -1320, "Iridium", "i", "C ", "", 2000, 100, 1));
             quadrant.addObject(new TrekZone(2399, 4836, 15137, "Jalapeno Nebula", "j", 3000, TrekZone.OBJ_NEBULA));
-            quadrant.addObject(new TrekPlanet(11144, 11144, 3135, "Khittomer Outpost", "k", "A ", "Klinzhai", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(6313, -9448, 11585, "Lucifer", "l", "", "", 2000, 100, 1));
             quadrant.addObject(new TrekZone(13329, -7605, -9980, "Markarian 205", "m", 2000, TrekZone.OBJ_PULSAR));
-            quadrant.addObject(new TrekPlanet(0, 15760, -3135, "Nimbus Outpost", "n", "A ", "Orion", 2000, 100, 1));
             quadrant.addObject(new TrekZone(13985, -8564, -6270, "Omega Nebula", "o", 4000, TrekZone.OBJ_NEBULA));
-            quadrant.addObject(new TrekPlanet(0, 0, 16384, "Polaris", "p", "C A ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(13682, -6523, -10174, "Quetzalcoatl", "q", "C ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(11585, 11585, 0, "Rura Penthe", "r", "", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(-6313, 9448, -11585, "Ssyz Planetoid", "s", "M ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(-11585, -11585, 0, "Tantalus V", "t", "FR ", "", 2000, 100, 1));
-            quadrant.addObject(new TrekPlanet(-7641, -3416, 8039, "Ursa Minor Beta", "u", "C ", "", 2000, 100, 1));
             quadrant.addObject(new TrekZone(-3524, 3623, -4000, "Veil Nebula", "v", 3000, TrekZone.OBJ_NEBULA));
             quadrant.addObject(new TrekWormhole(1, 4, 9, "Worm Hole", "w"));
             quadrant.addObject(new TrekZone(-16243, 4175, 4922, "Xelor Asteroids", "x", 5000, TrekZone.OBJ_ASTEROIDBELT));
-            quadrant.addObject(new TrekPlanet(-9448, 9448, -8928, "Yonada Outpost", "y", "A ", "", 2000, 100, 1));
             quadrant.addObject(new TrekZone(-776, 2647, 513, "Vela Pulsar", "z", 2000, TrekZone.OBJ_PULSAR));
             quadrants.put("Omega Quadrant", quadrant);
 
             quadrant = new TrekQuadrant(this);
             quadrant.name = "Nu Quadrant";
-            quadrant.addObject(new PlanetTeamPlay(-6313, 9448, -11585, "Team Base 1", "1", "M D T C TW FC ", "", 2000, 100, 1, 1));
+            dbInt.loadPlanetRecords(quadrant);
             quadrant.addObject(new TrekZone(-6303, 9438, -11575, "Nebula R", "r", 3000, TrekZone.OBJ_NEBULA));
-
-            quadrant.addObject(new PlanetTeamPlay(+6313, -9448, +11585, "Team Base 2", "2", "M D T C TW FC ", "", 2000, 100, 1, 2));
             quadrant.addObject(new TrekZone(+6303, -9438, +11575, "Nebula B", "b", 3000, TrekZone.OBJ_NEBULA));
-
-            quadrant.addObject(new TrekPlanet(4145, 2795, 0, "Crystallum", "c", "A C ", "", 3000, 250, 3));
-            quadrant.addObject(new TrekPlanet(3651, 3109, -546, "Torpetia", "t", "T L ", "", 3000, 250, 3));
-            quadrant.addObject(new TrekPlanet(4247, 2219, 545, "Dronze", "d", "D M ", "", 3000, 250, 3));
-            quadrant.addObject(new TrekPlanet(-4145, -2795, 0, "Miscelly IV", "m", "CM I N MB ", "", 3000, 250, 3));
             quadrant.addObject(new TrekStarbase(0, 0, 0, "The Flag", "f", "", 2000, 100, 1));
             quadrants.put("Nu Quadrant", quadrant);
 
             quadrant = new TrekQuadrant(this);
             quadrant.name = "Delta Quadrant";
+            dbInt.loadPlanetRecords(quadrant);
             quadrant.addObject(new TrekSpatialAnomaly(gen.nextInt() % 50000, gen.nextInt() % 50000, gen.nextInt() % 50000, "Spatial Anomaly", "W"));
-            quadrant.addObject(new TrekPlanet(7841, 27048, 17639, "Assimilated Planet", "a", "M D ", "", 2000, 500, 1));
-            quadrant.addObject(new TrekPlanet(10974, 30019, 21137, "Assimilated Planet", "b", "T ", "", 2000, 500, 1));
-            quadrant.addObject(new TrekPlanet(13710, 10000, -7950, "Assimilated Planet", "c", "A ", "", 2000, 500, 1));
             quadrant.addObject(new TrekZone(-22840, 11790, -6390, "Nebula", "d", 4000, TrekZone.OBJ_NEBULA));
             quadrant.addObject(new TrekZone(-18930, 11290, -9010, "Quasar", "e", 4000, TrekZone.OBJ_QUASAR));
-            quadrant.addObject(new TrekPlanet(35450, 33250, 2420, "Assimilated Planet", "f", "C A FR CM ", "", 2000, 500, 1));
             quadrant.addObject(new TrekZone(23600, 24140, -16930, "Asteroids", "g", 3000, TrekZone.OBJ_ASTEROIDBELT));
-            quadrant.addObject(new TrekPlanet(20030, 2320, -21220, "Assimilated Planet", "i", "", "", 2000, 500, 1));
             quadrant.addObject(new TrekZone(-21250, 5950, -12210, "Asteroid Belt", "j", 5000, TrekZone.OBJ_ASTEROIDBELT));
             quadrant.addObject(new TrekZone(32950, 35750, 2190, "Nebula", "l", 4000, TrekZone.OBJ_NEBULA));
-            quadrant.addObject(new PlanetMegadon(30040, -4600, -350, "Borg Homeworld", "m", "C M D T A ", "", 2000, 500, 1));
-            quadrant.addObject(new TrekPlanet(-23950, 12560, -4790, "Assimilated Planet", "n", "C ", "", 2000, 500, 1));
             quadrant.addObject(new TrekZone(7050, -13570, -25250, "Nebula", "o", 6000, TrekZone.OBJ_NEBULA));
-            quadrant.addObject(new TrekPlanet(4450, -7720, -17970, "Assimilated Planet", "p", "C A ", "", 2000, 500, 1));
             quadrant.addObject(new TrekZone(33050, -11640, 1130, "Quasar", "q", 4000, TrekZone.OBJ_QUASAR));
             quadrant.addObject(new TrekZone(8410, 11860, 9890, "Nebula", "r", 2500, TrekZone.OBJ_NEBULA));
-            quadrant.addObject(new TrekPlanet(-14310, -8550, 10290, "Assimilated Planet", "s", "M ", "", 2000, 500, 1));
-            quadrant.addObject(new PlanetTechPlanet(11795, 25850, 15998, "Tech Planet", "t", "C ", "", 2000, 500, 1));
-            quadrant.addObject(new TrekPlanet(24970, -21080, -35270, "Assimilated Planet", "u", "", "", 2000, 500, 1));
-            quadrant.addObject(new TrekPlanet(-6060, 19150, 5540, "Assimilated Planet", "v", "FC ", "", 2000, 500, 1));
             quadrant.addObject(new TrekZone(29200, 31050, 4740, "Pulsar", "x", 4000, TrekZone.OBJ_PULSAR));
             quadrant.addObject(new TrekZone(1900, -15820, -24800, "Asteroid Zone", "y", 5000, TrekZone.OBJ_ASTEROIDBELT));
             quadrant.addObject(new TrekObserverDevice("Observer-" + (100 + Math.abs(gen.nextInt() % 899)), "V", 6053 + randomInt(2000), 20747 + randomInt(2000), 2980 + randomInt(3000)));

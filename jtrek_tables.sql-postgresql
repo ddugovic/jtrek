@@ -5,28 +5,28 @@ CREATE TABLE ceasefire (
 
 CREATE SEQUENCE connection_seq;
 
-CREATE TABLE connections (
+CREATE TABLE connection (
   connection_id bigint NOT NULL DEFAULT nextval('connection_seq'),
   player_id integer NOT NULL DEFAULT 0,
   ship_id integer NOT NULL DEFAULT 0,
   connection_ip text NOT NULL DEFAULT '',
   connection_start timestamp without time zone NOT NULL DEFAULT '1000-01-01 00:00:00',
   connection_end timestamp without time zone NOT NULL DEFAULT '1000-01-01 00:00:00',
-  CONSTRAINT pkconnections_connectionid PRIMARY KEY (connection_id)
+  CONSTRAINT pkconnection_connectionid PRIMARY KEY (connection_id)
 );
 
-CREATE INDEX connections_playerid
-  ON connections
+CREATE INDEX connection_playerid
+  ON connection
   USING btree (player_id);
 
-CREATE INDEX connections_playerid_shipid
- ON connections
+CREATE INDEX connection_playerid_shipid
+ ON connection
  USING btree (player_id, ship_id);
  
-CREATE SEQUENCE ctfships_seq;
+CREATE SEQUENCE ctfship_seq;
 
-CREATE TABLE ctfships (
-  ship_id integer NOT NULL DEFAULT nextval('ctfships_seq'),
+CREATE TABLE ctfship (
+  ship_id integer NOT NULL DEFAULT nextval('ctfship_seq'),
   player_id integer NOT NULL DEFAULT 0,
   ship_alive smallint NOT NULL DEFAULT 1,
   ship_preservePwd timestamp without time zone NOT NULL DEFAULT '1000-01-01 00:00:00',
@@ -102,68 +102,68 @@ CREATE TABLE ctfships (
   ship_option_damagereports smallint NOT NULL DEFAULT 0,
   ship_option_objects smallint NOT NULL DEFAULT 0,
   ship_macros bytea,
-  CONSTRAINT pkctfships_shipid PRIMARY KEY (ship_id)
+  CONSTRAINT pkctfship_shipid PRIMARY KEY (ship_id)
 );
 
-CREATE INDEX ctfships_shipclass_shipgold
- ON ctfships
+CREATE INDEX ctfship_shipclass_shipgold
+ ON ctfship
  USING btree (ship_class, ship_gold);
 
-CREATE INDEX ctfships_shipdamagereceived
- ON ctfships
+CREATE INDEX ctfship_shipdamagereceived
+ ON ctfship
  USING btree (ship_damagereceived);
 
-CREATE INDEX ctfships_shipconflicts
- ON ctfships
+CREATE INDEX ctfship_shipconflicts
+ ON ctfship
  USING btree (ship_conflicts);
 
-CREATE INDEX ctfships_shipname
- ON ctfships
+CREATE INDEX ctfship_shipname
+ ON ctfship
  USING btree (ship_name);
 
-CREATE INDEX ctfships_shipdamagegiven
- ON ctfships
+CREATE INDEX ctfship_shipdamagegiven
+ ON ctfship
  USING btree (ship_damagegiven);
 
-CREATE INDEX ctfships_playerid
- ON ctfships
+CREATE INDEX ctfship_playerid
+ ON ctfship
  USING btree (player_id);
 
-CREATE INDEX ctfships_shipbonus
- ON ctfships
+CREATE INDEX ctfship_shipbonus
+ ON ctfship
  USING btree (ship_bonus);
 
-CREATE INDEX ctfships_shipclass_shipbonus
- ON ctfships
+CREATE INDEX ctfship_shipclass_shipbonus
+ ON ctfship
  USING btree (ship_class, ship_bonus);
 
-CREATE INDEX ctfships_shipclass_shipdamagereceived
- ON ctfships
+CREATE INDEX ctfship_shipclass_shipdamagereceived
+ ON ctfship
  USING btree (ship_class, ship_damagereceived);
 
-CREATE INDEX ctfships_shipclass_shipdamagegiven
- ON ctfships
+CREATE INDEX ctfship_shipclass_shipdamagegiven
+ ON ctfship
  USING btree (ship_class, ship_damagegiven);
 
-CREATE INDEX ctfships_shipgold
- ON ctfships
+CREATE INDEX ctfship_shipgold
+ ON ctfship
  USING btree (ship_gold);
 
-CREATE TABLE keymaps (
+CREATE TABLE keymap (
   player_id integer NOT NULL DEFAULT 0,
   ship_class text NOT NULL DEFAULT '',
   ship_macros bytea NOT NULL,
-  CONSTRAINT pkkeymaps_playerid PRIMARY KEY (player_id)
+  CONSTRAINT pkkeymap_playerid PRIMARY KEY (player_id)
 );
 
-CREATE INDEX keymaps_playerid_shipclass
- ON keymaps
+CREATE INDEX keymap_playerid_shipclass
+ ON keymap
  USING btree (player_id, ship_class);
 
-CREATE SEQUENCE players_seq;
+CREATE SEQUENCE player_seq;
 
-CREATE TABLE players (
-  player_id integer NOT NULL DEFAULT nextval('players_seq'),
+CREATE TABLE player (
+  player_id integer NOT NULL DEFAULT nextval('player_seq'),
   player_name text NOT NULL DEFAULT '',
   player_pwd text NOT NULL DEFAULT '',
   player_admin boolean NOT NULL DEFAULT false,
@@ -176,17 +176,17 @@ CREATE TABLE players (
   player_account_locked boolean NOT NULL DEFAULT false,
   player_login_msg bytea,
   player_anonymous boolean NOT NULL DEFAULT false,
-  CONSTRAINT pkplayers_playerid PRIMARY KEY (player_id)
+  CONSTRAINT pkplayer_playerid PRIMARY KEY (player_id)
 );
 
-CREATE INDEX players_playername
-  ON players
+CREATE INDEX player_playername
+  ON player
   USING btree (player_name);
   
-CREATE SEQUENCE ships_seq;
+CREATE SEQUENCE ship_seq;
 
-CREATE TABLE ships (
-  ship_id integer NOT NULL DEFAULT nextval('ships_seq'),
+CREATE TABLE ship (
+  ship_id integer NOT NULL DEFAULT nextval('ship_seq'),
   player_id integer NOT NULL DEFAULT 0,
   ship_alive smallint NOT NULL DEFAULT 1,
   ship_preservePwd timestamp without time zone NOT NULL DEFAULT '1000-01-01 00:00:00',
@@ -266,49 +266,160 @@ CREATE TABLE ships (
   ship_option_damagereports smallint NOT NULL DEFAULT 0,
   ship_option_objects smallint NOT NULL DEFAULT 0,
   ship_macros bytea,
-  CONSTRAINT pkships_shipid PRIMARY KEY (ship_id)
+  CONSTRAINT pkship_shipid PRIMARY KEY (ship_id)
 );
 
-CREATE INDEX ships_shipclass_shipgold
- ON ships
+CREATE INDEX ship_shipclass_shipgold
+ ON ship
  USING btree (ship_class, ship_gold);
 
-CREATE INDEX ships_shipdamagereceived
- ON ships
+CREATE INDEX ship_shipdamagereceived
+ ON ship
  USING btree (ship_damagereceived);
 
-CREATE INDEX ships_shipconflicts
- ON ships
+CREATE INDEX ship_shipconflicts
+ ON ship
  USING btree (ship_conflicts);
 
-CREATE INDEX ships_shipname
- ON ships
+CREATE INDEX ship_shipname
+ ON ship
  USING btree (ship_name);
 
-CREATE INDEX ships_shipdamagegiven
- ON ships
+CREATE INDEX ship_shipdamagegiven
+ ON ship
  USING btree (ship_damagegiven);
 
-CREATE INDEX ships_playerid
- ON ships
+CREATE INDEX ship_playerid
+ ON ship
  USING btree (player_id);
 
-CREATE INDEX ships_shipbonus
- ON ships
+CREATE INDEX ship_shipbonus
+ ON ship
  USING btree (ship_bonus);
 
-CREATE INDEX ships_shipclass_shipbonus
- ON ships
+CREATE INDEX ship_shipclass_shipbonus
+ ON ship
  USING btree (ship_class, ship_bonus);
 
-CREATE INDEX ships_shipclass_shipdamagereceived
- ON ships
+CREATE INDEX ship_shipclass_shipdamagereceived
+ ON ship
  USING btree (ship_class, ship_damagereceived);
 
-CREATE INDEX ships_shipclass_shipdamagegiven
- ON ships
+CREATE INDEX ship_shipclass_shipdamagegiven
+ ON ship
  USING btree (ship_class, ship_damagegiven);
 
-CREATE INDEX ships_shipgold
- ON ships
+CREATE INDEX ship_shipgold
+ ON ship
  USING btree (ship_gold);
+
+CREATE SEQUENCE planet_seq;
+
+CREATE TABLE planet(
+  planet_id bigint NOT NULL DEFAULT nextval('planet_seq'),
+  x integer NOT NULL DEFAULT 0,
+  y integer NOT NULL DEFAULT 0,
+  z integer NOT NULL DEFAULT 0,
+  name text NOT NULL DEFAULT '',
+  scan varchar(1) NOT NULL DEFAULT '',
+  codes varchar(20) NOT NULL DEFAULT '',
+  race varchar(20) NOT NULL DEFAULT '',
+  range smallint NOT NULL DEFAULT 0,
+  damage smallint NOT NULL DEFAULT 0,
+  delay smallint NOT NULL DEFAULT 0,
+  team smallint NOT NULL DEFAULT 0,
+  quadrant varchar(10),
+  CONSTRAINT pkplanet_planetid PRIMARY KEY (planet_id)
+);
+
+--Alpha
+INSERT INTO planet VALUES(-20320, -21344, -1200, 'Delta Vega', 'd', 'C M D ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(2000, 2025, 220, 'Earth', 'e', 'A TW ', 'Earth', 2000, 100, 1);
+INSERT INTO planet VALUES(-10000, -36020, -4060, 'Gorn', 'g', 'A ', 'Gorn', 2000, 100, 1);
+INSERT INTO planet VALUES(139519, -115152, 111346, 'Hyperion', 'h', 'C A ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-21200, -23040, -4020, 'Deneva', 'j', 'T ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(36030, -18080, 3000, 'Klinzhai', 'k', 'A ', 'Klinzhai', 2000, 100, 1);
+INSERT INTO planet VALUES(139988, -114758, 111123, 'Lusus Minor', 'l', 'L T ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(136030, -118080, 113000, 'Magrathea', 'm', 'M D ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-39700, 16341, 7000, 'Orion', 'o', 'A ', 'Orion', 2000, 100, 1);
+INSERT INTO planet VALUES(8100, -20341, 40, 'Wrigley', 'p', 'C ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-17700, -9341, 3400, 'Rigel XII', 'q', 'C ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(20100, 29200, -3230, 'Romulus', 'r', 'A FC ', 'Romulus', 2000, 100, 1);
+INSERT INTO planet VALUES(6053, 20747, 2980, 'Vulcan', 'v', 'C ', '', 2000, 100, 1);
+UPDATE planet SET quadrant='Alpha' WHERE quadrant IS NULL;
+--Beta
+INSERT INTO planet VALUES(-15350, 2440, 6080, 'Arrakis', 'a', 'C ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-8970, 25670, -23180, 'Brachistochrone', 'b', 'T N I MB ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(1280, 24120, 21070, 'Dana Planet', 'd', 'A ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-2050, -5460, -17900, 'Encinitas', 'e', 'None ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(18810, -1990, 5720, 'Fomalhaut', 'f', 'None ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-602, 8647, -1772, 'Gauss', 'g', 'T ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-19340, -18190, -20150, 'Hawserion', 'h', 'C ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(20850, 7120, -1080, 'Ion', 'i', 'FC ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-4290, -7570, 9020, 'Jovia', 'j', 'None ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-7800, -6240, -21610, 'Lethargy', 'l', '', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-23450, 27700, 26460, 'Malibu Beta 6', 'm', 'A ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(2512, 5004, -3198, 'Newtonium', 'n', 'M A ', 'Klinzhai', 2000, 100, 1);
+INSERT INTO planet VALUES(28620, -15180, 10970, 'Pleasure Planet', 'p', 'C ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-10000, 21670, -10250, 'Tautochrone', 't', 'C M D ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(17230, -6660, 8420, 'Uhura', 'u', 'None ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(4459, 9388, -362, 'Vishnu', 'v', 'C D ', '', 5000, 100, 1);
+INSERT INTO planet VALUES(-20940, 7900, -28990, 'Planet X-Beta', 'x', 'None ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-24160, -7080, 19630, 'Yaxci', 'y', 'None ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(20750, -12450, 7020, 'Planet Z-Beta', 'z', 'None ', '', 2000, 100, 1);
+UPDATE planet SET quadrant='Beta' WHERE quadrant IS NULL;
+--Gamma
+INSERT INTO planet VALUES(7841, 27048, 17639, 'Alpha Centauri', 'a', 'M D ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(10974, 30019, 21137, 'Bajor', 'b', 'T ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(13710, 10000, -7950, 'Cardassia', 'c', 'A ', 'Cardassia', 2000, 100, 1);
+INSERT INTO planet VALUES(35450, 33250, 2420, 'Ferrigulum', 'f', 'C A FR CM ', 'Ferrigulum', 2000, 100, 1);
+INSERT INTO planet VALUES(20030, 2320, -21220, 'Irata Carinae', 'i', '', '', 2000, 100, 1);
+INSERT INTO planet VALUES(30040, -4600, -350, 'Megadon', 'm', 'C M D T A ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-23950, 12560, -4790, 'Nebulon', 'n', 'C ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(4450, -7720, -17970, 'Praxis', 'p', 'C A ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-14310, -8550, 10290, 'Sagittarius', 's', 'M ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(11795, 25850, 15998, 'Triangulum', 't', 'C ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(24970, -21080, -35270, 'Uranus Cygni', 'u', '', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-6060, 19150, 5540, 'Vidicon Beta', 'v', 'FC ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-15810, 35290, -16740, 'Zwicky', 'z', '', '', 2000, 100, 1);
+UPDATE planet SET quadrant='Gamma' WHERE quadrant IS NULL;
+--Omega
+INSERT INTO planet VALUES(5793, -2399, -15137, 'Aay''diemm III-A', 'a', '', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-5793, -2399, 15137, 'Beta Carotene', 'b', 'FC ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-9448, -9448, 8928, 'Dandelion Outpost', 'd', 'A ', 'Romulus', 2000, 100, 1);
+INSERT INTO planet VALUES(0, -15760, 3135, 'Frogstar Outpost', 'f', 'A', 'Gorn', 2000, 100, 1);
+INSERT INTO planet VALUES(11144, -11144, -3135, 'Gagaran Outpost', 'g', 'A ', 'Earth', 2000, 100, 1);
+INSERT INTO planet VALUES(768, 5206, -1320, 'Iridium', 'i', 'C ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(11144, 11144, 3135, 'Khittomer Outpost', 'k', 'A ', 'Klinzhai', 2000, 100, 1);
+INSERT INTO planet VALUES(6313, -9448, 11585, 'Lucifer', 'l', '', '', 2000, 100, 1);
+INSERT INTO planet VALUES(0, 15760, -3135, 'Nimbus Outpost', 'n', 'A ', 'Orion', 2000, 100, 1);
+INSERT INTO planet VALUES(0, 0, 16384, 'Polaris', 'p', 'C A ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(13682, -6523, -10174, 'Quetzalcoatl', 'q', 'C ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(11585, 11585, 0, 'Rura Penthe', 'r', '', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-6313, 9448, -11585, 'Ssyz Planetoid', 's', 'M ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-11585, -11585, 0, 'Tantalus V', 't', 'FR ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-7641, -3416, 8039, 'Ursa Minor Beta', 'u', 'C ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-9448, 9448, -8928, 'Yonada Outpost', 'y', 'A ', '', 2000, 100, 1);
+UPDATE planet SET quadrant='Omega' WHERE quadrant IS NULL;
+--Nu
+INSERT INTO planet VALUES(-6313, 9448, -11585, 'Team Base 1', '1', 'M D T C TW FC ', '', 2000, 100, 1, 1);
+INSERT INTO planet VALUES(6313, -9448, 11585, 'Team Base 2', '2', 'M D T C TW FC ', '', 2000, 100, 1, 2);
+INSERT INTO planet VALUES(4145, 2795, 0, 'Crystallum', 'c', 'A C ', '', 3000, 250, 3);
+INSERT INTO planet VALUES(3651, 3109, -546, 'Torpetia', 't', 'T L ', '', 3000, 250, 3);
+INSERT INTO planet VALUES(4247, 2219, 545, 'Dronze', 'd', 'D M ', '', 3000, 250, 3);
+INSERT INTO planet VALUES(-4145, -2795, 0, 'Miscelly IV', 'm', 'CM I N MB ', '', 3000, 250, 3);
+UPDATE planet SET quadrant='Nu' WHERE quadrant IS NULL;
+--Delta
+INSERT INTO planet VALUES(7841, 27048, 17639, 'Assimilated Planet', 'a', 'M D ', '', 2000, 500, 1);
+INSERT INTO planet VALUES(10974, 30019, 21137, 'Assimilated Planet', 'b', 'T ', '', 2000, 500, 1);
+INSERT INTO planet VALUES(13710, 10000, -7950, 'Assimilated Planet', 'c', 'A ', '', 2000, 500, 1);
+INSERT INTO planet VALUES(35450, 33250, 2420, 'Assimilated Planet', 'f', 'C A FR CM ', '', 2000, 500, 1);
+INSERT INTO planet VALUES(20030, 2320, -21220, 'Assimilated Planet', 'i', '', '', 2000, 500, 1);
+INSERT INTO planet VALUES(30040, -4600, -350, 'Borg Homeworld', 'm', 'C M D T A ', '', 2000, 500, 1);
+INSERT INTO planet VALUES(-23950, 12560, -4790, 'Assimilated Planet', 'n', 'C ', '', 2000, 500, 1);
+INSERT INTO planet VALUES(4450, -7720, -17970, 'Assimilated Planet', 'p', 'C A ', '', 2000, 500, 1);
+INSERT INTO planet VALUES(-14310, -8550, 10290, 'Assimilated Planet', 's', 'M ', '', 2000, 500, 1);
+INSERT INTO planet VALUES(11795, 25850, 15998, 'Tech Planet', 't', 'C ', '', 2000, 500, 1);
+INSERT INTO planet VALUES(24970, -21080, -35270, 'Assimilated Planet', 'u', '', '', 2000, 500, 1);
+INSERT INTO planet VALUES(-6060, 19150, 5540, 'Assimilated Planet', 'v', 'FC ', '', 2000, 500, 1);
+UPDATE planet SET quadrant='Delta' WHERE quadrant IS NULL;

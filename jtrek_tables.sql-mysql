@@ -4,7 +4,7 @@ CREATE TABLE ceasefire (
 ) TYPE=MyISAM COMMENT='JTrek Cease-Fire Table';
 
 
-CREATE TABLE connections (
+CREATE TABLE connection (
   connection_id bigint(20) unsigned NOT NULL auto_increment,
   player_id int(10) unsigned NOT NULL default '0',
   ship_id int(10) unsigned NOT NULL default '0',
@@ -16,7 +16,7 @@ CREATE TABLE connections (
   KEY playerIndex (player_id)
 ) TYPE=MyISAM COMMENT='JTrek Connection Table';
 
-CREATE TABLE ctfships (
+CREATE TABLE ctfship (
   ship_id int(10) unsigned NOT NULL auto_increment,
   player_id int(10) unsigned NOT NULL default '0',
   ship_alive tinyint(1) unsigned NOT NULL default '1',
@@ -94,21 +94,21 @@ CREATE TABLE ctfships (
   ship_option_objects smallint(5) unsigned NOT NULL default '0',
   ship_macros blob,
   PRIMARY KEY  (ship_id),
-  KEY ships_by_class_gold (ship_class,ship_gold),
-  KEY ships_by_damagereceived (ship_damagereceived),
-  KEY ships_byconflict (ship_conflicts),
-  KEY ships_by_name (ship_name),
-  KEY ships_by_damagegiven (ship_damagegiven),
-  KEY ships_by_player (player_id),
-  KEY ships_by_bonus (ship_bonus),
-  KEY ships_by_class_bonus (ship_class,ship_bonus),
-  KEY ships_by_class_damagereceived (ship_class,ship_damagereceived),
-  KEY ships_by_gold (ship_gold),
-  KEY ships_by_class_damagegiven (ship_class,ship_damagegiven)
-) TYPE=MyISAM COMMENT='JTrek CTF Ships Table';
+  KEY ship_by_class_gold (ship_class,ship_gold),
+  KEY ship_by_damagereceived (ship_damagereceived),
+  KEY ship_byconflict (ship_conflicts),
+  KEY ship_by_name (ship_name),
+  KEY ship_by_damagegiven (ship_damagegiven),
+  KEY ship_by_player (player_id),
+  KEY ship_by_bonus (ship_bonus),
+  KEY ship_by_class_bonus (ship_class,ship_bonus),
+  KEY ship_by_class_damagereceived (ship_class,ship_damagereceived),
+  KEY ship_by_gold (ship_gold),
+  KEY ship_by_class_damagegiven (ship_class,ship_damagegiven)
+) TYPE=MyISAM COMMENT='JTrek CTF Ship Table';
 
 
-CREATE TABLE keymaps (
+CREATE TABLE keymap (
   player_id int(10) unsigned NOT NULL default '0',
   ship_class varchar(100) NOT NULL default '',
   ship_macros blob NOT NULL,
@@ -116,7 +116,7 @@ CREATE TABLE keymaps (
 ) TYPE=MyISAM COMMENT='JTrek Keymap Template Table';
 
 
-CREATE TABLE players (
+CREATE TABLE player (
   player_id int(10) unsigned NOT NULL auto_increment,
   player_name varchar(30) NOT NULL default '',
   player_pwd varchar(20) NOT NULL default '',
@@ -135,7 +135,7 @@ CREATE TABLE players (
 ) TYPE=MyISAM COMMENT='JTrek Players Table';
 
 
-CREATE TABLE ships (
+CREATE TABLE ship (
   ship_id int(10) unsigned NOT NULL auto_increment,
   player_id int(10) unsigned NOT NULL default '0',
   ship_alive tinyint(1) unsigned NOT NULL default '1',
@@ -217,16 +217,124 @@ CREATE TABLE ships (
   ship_option_objects smallint(5) unsigned NOT NULL default '0',
   ship_macros blob,
   PRIMARY KEY  (ship_id),
-  KEY ships_by_class_gold (ship_class,ship_gold),
-  KEY ships_by_damagereceived (ship_damagereceived),
-  KEY ships_byconflict (ship_conflicts),
-  KEY ships_by_name (ship_name),
-  KEY ships_by_damagegiven (ship_damagegiven),
-  KEY ships_by_player (player_id),
-  KEY ships_by_bonus (ship_bonus),
-  KEY ships_by_class_bonus (ship_class,ship_bonus),
-  KEY ships_by_class_damagereceived (ship_class,ship_damagereceived),
-  KEY ships_by_gold (ship_gold),
-  KEY ships_by_class_damagegiven (ship_class,ship_damagegiven)
-) TYPE=MyISAM COMMENT='JTrek Ships Table';
+  KEY ship_by_class_gold (ship_class,ship_gold),
+  KEY ship_by_damagereceived (ship_damagereceived),
+  KEY ship_byconflict (ship_conflicts),
+  KEY ship_by_name (ship_name),
+  KEY ship_by_damagegiven (ship_damagegiven),
+  KEY ship_by_player (player_id),
+  KEY ship_by_bonus (ship_bonus),
+  KEY ship_by_class_bonus (ship_class,ship_bonus),
+  KEY ship_by_class_damagereceived (ship_class,ship_damagereceived),
+  KEY ship_by_gold (ship_gold),
+  KEY ship_by_class_damagegiven (ship_class,ship_damagegiven)
+) TYPE=MyISAM COMMENT='JTrek Ship Table';
 
+CREATE TABLE planet (
+  planet_id int(10) unsigned NOT NULL auto_increment,
+  x int(5) NOT NULL default '0',
+  y int(5) NOT NULL default '0',
+  z int(5) NOT NULL default '0',
+  name varchar(100) binary NOT NULL default '',
+  scan varchar(20) binary NOT NULL default '',
+  codes varchar(20) binary NOT NULL default '',
+  race varchar(20) binary NOT NULL default '',
+  range smallint(5) unsigned NOT NULL default '0',
+  damage smallint(5) unsigned NOT NULL default '0',
+  delay smallint(5) unsigned NOT NULL default '0',
+  team smallint(5) unsigned NOT NULL default '0',
+  quadrant varchar(10) binary NOT NULL default '',
+  PRIMARY KEY  (planet_id)
+) TYPE=MyISAM COMMENT='JTrek Planet Table';
+
+--Alpha
+INSERT INTO planet VALUES(-20320, -21344, -1200, 'Delta Vega', 'd', 'C M D ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(2000, 2025, 220, 'Earth', 'e', 'A TW ', 'Earth', 2000, 100, 1);
+INSERT INTO planet VALUES(-10000, -36020, -4060, 'Gorn', 'g', 'A ', 'Gorn', 2000, 100, 1);
+INSERT INTO planet VALUES(139519, -115152, 111346, 'Hyperion', 'h', 'C A ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-21200, -23040, -4020, 'Deneva', 'j', 'T ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(36030, -18080, 3000, 'Klinzhai', 'k', 'A ', 'Klinzhai', 2000, 100, 1);
+INSERT INTO planet VALUES(139988, -114758, 111123, 'Lusus Minor', 'l', 'L T ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(136030, -118080, 113000, 'Magrathea', 'm', 'M D ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-39700, 16341, 7000, 'Orion', 'o', 'A ', 'Orion', 2000, 100, 1);
+INSERT INTO planet VALUES(8100, -20341, 40, 'Wrigley', 'p', 'C ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-17700, -9341, 3400, 'Rigel XII', 'q', 'C ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(20100, 29200, -3230, 'Romulus', 'r', 'A FC ', 'Romulus', 2000, 100, 1);
+INSERT INTO planet VALUES(6053, 20747, 2980, 'Vulcan', 'v', 'C ', '', 2000, 100, 1);
+UPDATE planet SET quadrant='Alpha' WHERE quadrant IS NULL;
+--Beta
+INSERT INTO planet VALUES(-15350, 2440, 6080, 'Arrakis', 'a', 'C ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-8970, 25670, -23180, 'Brachistochrone', 'b', 'T N I MB ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(1280, 24120, 21070, 'Dana Planet', 'd', 'A ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-2050, -5460, -17900, 'Encinitas', 'e', 'None ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(18810, -1990, 5720, 'Fomalhaut', 'f', 'None ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-602, 8647, -1772, 'Gauss', 'g', 'T ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-19340, -18190, -20150, 'Hawserion', 'h', 'C ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(20850, 7120, -1080, 'Ion', 'i', 'FC ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-4290, -7570, 9020, 'Jovia', 'j', 'None ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-7800, -6240, -21610, 'Lethargy', 'l', '', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-23450, 27700, 26460, 'Malibu Beta 6', 'm', 'A ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(2512, 5004, -3198, 'Newtonium', 'n', 'M A ', 'Klinzhai', 2000, 100, 1);
+INSERT INTO planet VALUES(28620, -15180, 10970, 'Pleasure Planet', 'p', 'C ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-10000, 21670, -10250, 'Tautochrone', 't', 'C M D ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(17230, -6660, 8420, 'Uhura', 'u', 'None ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(4459, 9388, -362, 'Vishnu', 'v', 'C D ', '', 5000, 100, 1);
+INSERT INTO planet VALUES(-20940, 7900, -28990, 'Planet X-Beta', 'x', 'None ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-24160, -7080, 19630, 'Yaxci', 'y', 'None ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(20750, -12450, 7020, 'Planet Z-Beta', 'z', 'None ', '', 2000, 100, 1);
+UPDATE planet SET quadrant='Beta' WHERE quadrant IS NULL;
+--Gamma
+INSERT INTO planet VALUES(7841, 27048, 17639, 'Alpha Centauri', 'a', 'M D ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(10974, 30019, 21137, 'Bajor', 'b', 'T ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(13710, 10000, -7950, 'Cardassia', 'c', 'A ', 'Cardassia', 2000, 100, 1);
+INSERT INTO planet VALUES(35450, 33250, 2420, 'Ferrigulum', 'f', 'C A FR CM ', 'Ferrigulum', 2000, 100, 1);
+INSERT INTO planet VALUES(20030, 2320, -21220, 'Irata Carinae', 'i', '', '', 2000, 100, 1);
+INSERT INTO planet VALUES(30040, -4600, -350, 'Megadon', 'm', 'C M D T A ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-23950, 12560, -4790, 'Nebulon', 'n', 'C ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(4450, -7720, -17970, 'Praxis', 'p', 'C A ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-14310, -8550, 10290, 'Sagittarius', 's', 'M ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(11795, 25850, 15998, 'Triangulum', 't', 'C ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(24970, -21080, -35270, 'Uranus Cygni', 'u', '', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-6060, 19150, 5540, 'Vidicon Beta', 'v', 'FC ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-15810, 35290, -16740, 'Zwicky', 'z', '', '', 2000, 100, 1);
+UPDATE planet SET quadrant='Gamma' WHERE quadrant IS NULL;
+--Omega
+INSERT INTO planet VALUES(5793, -2399, -15137, 'Aay''diemm III-A', 'a', '', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-5793, -2399, 15137, 'Beta Carotene', 'b', 'FC ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-9448, -9448, 8928, 'Dandelion Outpost', 'd', 'A ', 'Romulus', 2000, 100, 1);
+INSERT INTO planet VALUES(0, -15760, 3135, 'Frogstar Outpost', 'f', 'A', 'Gorn', 2000, 100, 1);
+INSERT INTO planet VALUES(11144, -11144, -3135, 'Gagaran Outpost', 'g', 'A ', 'Earth', 2000, 100, 1);
+INSERT INTO planet VALUES(768, 5206, -1320, 'Iridium', 'i', 'C ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(11144, 11144, 3135, 'Khittomer Outpost', 'k', 'A ', 'Klinzhai', 2000, 100, 1);
+INSERT INTO planet VALUES(6313, -9448, 11585, 'Lucifer', 'l', '', '', 2000, 100, 1);
+INSERT INTO planet VALUES(0, 15760, -3135, 'Nimbus Outpost', 'n', 'A ', 'Orion', 2000, 100, 1);
+INSERT INTO planet VALUES(0, 0, 16384, 'Polaris', 'p', 'C A ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(13682, -6523, -10174, 'Quetzalcoatl', 'q', 'C ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(11585, 11585, 0, 'Rura Penthe', 'r', '', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-6313, 9448, -11585, 'Ssyz Planetoid', 's', 'M ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-11585, -11585, 0, 'Tantalus V', 't', 'FR ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-7641, -3416, 8039, 'Ursa Minor Beta', 'u', 'C ', '', 2000, 100, 1);
+INSERT INTO planet VALUES(-9448, 9448, -8928, 'Yonada Outpost', 'y', 'A ', '', 2000, 100, 1);
+UPDATE planet SET quadrant='Omega' WHERE quadrant IS NULL;
+--Nu
+INSERT INTO planet VALUES(-6313, 9448, -11585, 'Team Base 1', '1', 'M D T C TW FC ', '', 2000, 100, 1, 1);
+INSERT INTO planet VALUES(6313, -9448, 11585, 'Team Base 2', '2', 'M D T C TW FC ', '', 2000, 100, 1, 2);
+INSERT INTO planet VALUES(4145, 2795, 0, 'Crystallum', 'c', 'A C ', '', 3000, 250, 3);
+INSERT INTO planet VALUES(3651, 3109, -546, 'Torpetia', 't', 'T L ', '', 3000, 250, 3);
+INSERT INTO planet VALUES(4247, 2219, 545, 'Dronze', 'd', 'D M ', '', 3000, 250, 3);
+INSERT INTO planet VALUES(-4145, -2795, 0, 'Miscelly IV', 'm', 'CM I N MB ', '', 3000, 250, 3);
+UPDATE planet SET quadrant='Nu' WHERE quadrant IS NULL;
+--Delta
+INSERT INTO planet VALUES(7841, 27048, 17639, 'Assimilated Planet', 'a', 'M D ', '', 2000, 500, 1);
+INSERT INTO planet VALUES(10974, 30019, 21137, 'Assimilated Planet', 'b', 'T ', '', 2000, 500, 1);
+INSERT INTO planet VALUES(13710, 10000, -7950, 'Assimilated Planet', 'c', 'A ', '', 2000, 500, 1);
+INSERT INTO planet VALUES(35450, 33250, 2420, 'Assimilated Planet', 'f', 'C A FR CM ', '', 2000, 500, 1);
+INSERT INTO planet VALUES(20030, 2320, -21220, 'Assimilated Planet', 'i', '', '', 2000, 500, 1);
+INSERT INTO planet VALUES(30040, -4600, -350, 'Borg Homeworld', 'm', 'C M D T A ', '', 2000, 500, 1);
+INSERT INTO planet VALUES(-23950, 12560, -4790, 'Assimilated Planet', 'n', 'C ', '', 2000, 500, 1);
+INSERT INTO planet VALUES(4450, -7720, -17970, 'Assimilated Planet', 'p', 'C A ', '', 2000, 500, 1);
+INSERT INTO planet VALUES(-14310, -8550, 10290, 'Assimilated Planet', 's', 'M ', '', 2000, 500, 1);
+INSERT INTO planet VALUES(11795, 25850, 15998, 'Tech Planet', 't', 'C ', '', 2000, 500, 1);
+INSERT INTO planet VALUES(24970, -21080, -35270, 'Assimilated Planet', 'u', '', '', 2000, 500, 1);
+INSERT INTO planet VALUES(-6060, 19150, 5540, 'Assimilated Planet', 'v', 'FC ', '', 2000, 500, 1);
+UPDATE planet SET quadrant='Delta' WHERE quadrant IS NULL;

@@ -163,7 +163,7 @@ public class TrekJDBCInterface {
         try {
             PreparedStatement doesPlayerExistStmt =
                     myCon.prepareStatement(
-                            "SELECT player_id FROM players WHERE player_name = ?");
+                            "SELECT player_id FROM player WHERE player_name = ?");
             doesPlayerExistStmt.setString(1, playerName);
             rs = doesPlayerExistStmt.executeQuery();
             if (rs.next()) {
@@ -204,7 +204,7 @@ public class TrekJDBCInterface {
         try {
             PreparedStatement plyrIDStmt =
                     myCon.prepareStatement(
-                            "SELECT player_id, player_name FROM players");
+                            "SELECT player_id, player_name FROM player");
             rs = plyrIDStmt.executeQuery();
 
             do {
@@ -230,7 +230,7 @@ public class TrekJDBCInterface {
         try {
             PreparedStatement getShipPasswordStmt =
                     myCon.prepareStatement(
-                            "SELECT player_pwd FROM players p "
+                            "SELECT player_pwd FROM player p "
                                     + "JOIN " + getShipDB() + " s ON s.player_id = p.player_id WHERE s.ship_name = ? AND ship_alive = 1");
             getShipPasswordStmt.setString(1, shipName);
             rs = getShipPasswordStmt.executeQuery();
@@ -256,7 +256,7 @@ public class TrekJDBCInterface {
         try {
             PreparedStatement getPreservedShipPasswordStmt =
                     myCon.prepareStatement(
-                            "SELECT player_pwd FROM players p "
+                            "SELECT player_pwd FROM player p "
                                     + "JOIN " + getShipDB() + " s on s.player_id = p.player_id WHERE s.ship_name = ? AND ship_alive = 0 AND ship_preservePwd > ?");
             getPreservedShipPasswordStmt.setString(1, shipName);
             getPreservedShipPasswordStmt.setTimestamp(2, new Timestamp(curTime));
@@ -280,7 +280,7 @@ public class TrekJDBCInterface {
         try {
             PreparedStatement getPlayerPasswordStmt =
                     myCon.prepareStatement(
-                            "SELECT player_pwd FROM players WHERE player_name = ?");
+                            "SELECT player_pwd FROM player WHERE player_name = ?");
             getPlayerPasswordStmt.setString(1, playerName);
             rs = getPlayerPasswordStmt.executeQuery();
             if (rs.next()) {
@@ -311,7 +311,7 @@ public class TrekJDBCInterface {
 
             PreparedStatement writePlayer =
                     myCon.prepareStatement(
-                            "INSERT INTO players (player_name, player_pwd, player_create_date ) VALUES (?, ?, ?)");
+                            "INSERT INTO player (player_name, player_pwd, player_create_date ) VALUES (?, ?, ?)");
             writePlayer.setString(1, playerName);
             writePlayer.setString(2, password);
             writePlayer.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
@@ -577,6 +577,53 @@ public class TrekJDBCInterface {
             TrekLog.logException(SQLe);
         }
         return updateSuccess;
+    }
+
+    // ship_name, and player_id should already be set in Player object
+    public void loadPlanetRecords(TrekQuadrant quadrant) {
+        try {
+            PreparedStatement readShipStmt =
+                    myCon.prepareStatement(
+                            "SELECT x, y, z, name, scan, codes, race, range, damage, delay, team FROM planet WHERE quadrant = ?");
+            readShipStmt.setString(1, quadrant.name.split(" ")[0]);
+            rs = readShipStmt.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("name");
+                int x = rs.getInt("x"), y = rs.getInt("y"), z = rs.getInt("z");
+                String scan = rs.getString("scan");
+                String codes = rs.getString("codes");
+                String race = rs.getString("race");
+                int range = rs.getInt("range"), damage = rs.getInt("damage"), delay = rs.getInt("delay");
+                switch (name) {
+                case "Klinzhai":
+                    quadrant.addObject(new PlanetKlinzhai(x, y, z, name, scan, codes, race, range, damage, delay));
+                    break;
+                case "Romulus":
+                    quadrant.addObject(new PlanetRomulus(x, y, z, name, scan, codes, race, range, damage, delay));
+                    break;
+                case "Brachistochrone":
+                case "Tautochrone":
+                    quadrant.addObject(new PlanetWarring(x, y, z, name, scan, codes, race, range, damage, delay));
+                    break;
+                case "Megadon":
+                case "Borg Homeworld":
+                    quadrant.addObject(new PlanetMegadon(x, y, z, name, scan, codes, race, range, damage, delay));
+                    break;
+                case "Team Base 1":
+                case "Team Base 2":
+                    quadrant.addObject(new PlanetTeamPlay(x, y, z, name, scan, codes, race, range, damage, delay, rs.getInt("team")));
+                    break;
+                case "Tech Planet":
+                    quadrant.addObject(new PlanetTechPlanet(x, y, z, name, scan, codes, race, range, damage, delay));
+                    break;
+                default:
+                    quadrant.addObject(new TrekPlanet(x, y, z, name, scan, codes, race, range, damage, delay));
+                }
+            }
+        } catch (SQLException SQLe) {
+            TrekLog.logError("*** ERROR ***   Problem reading planets quadrant: " + quadrant.name);
+            TrekLog.logException(SQLe);
+        }
     }
 
     // ship_name, and player_id should already be set in Player object
@@ -991,7 +1038,7 @@ public class TrekJDBCInterface {
         try {
             PreparedStatement updatePlayerLoginStmt =
                     myCon.prepareStatement(
-                            "UPDATE players SET player_last_login = ? WHERE player_id = ?");
+                            "UPDATE player SET player_last_login = ? WHERE player_id = ?");
             updatePlayerLoginStmt.setTimestamp(1, new Timestamp(loginDate));
             updatePlayerLoginStmt.setInt(2, playerID);
             returnFlag = updatePlayerLoginStmt.execute();
@@ -1006,7 +1053,7 @@ public class TrekJDBCInterface {
         long returnValue = 0;
 
         try {
-            PreparedStatement createConnStmt = myCon.prepareStatement("INSERT INTO connections (player_id, ship_id, connection_start, connection_end, connection_ip) " +
+            PreparedStatement createConnStmt = myCon.prepareStatement("INSERT INTO connection (player_id, ship_id, connection_start, connection_end, connection_ip) " +
                     "VALUES (?, ?, ?, ?, ?)");
             Timestamp timeIn = new Timestamp(player.timeShipLogin);
             createConnStmt.setInt(1, player.dbPlayerID);
@@ -1015,7 +1062,7 @@ public class TrekJDBCInterface {
             createConnStmt.setTimestamp(4, timeIn);
             createConnStmt.setString(5, player.playerIP);
             createConnStmt.execute();
-            String connectionIDQuery = "SELECT last_insert_id() FROM connections LIMIT 1";
+            String connectionIDQuery = "SELECT last_insert_id() FROM connection LIMIT 1";
             if (isPostgres) {
                 connectionIDQuery = "SELECT lastval()";
             }
@@ -1036,7 +1083,7 @@ public class TrekJDBCInterface {
 
     public void updateConnection(TrekPlayer player) {
         try {
-            PreparedStatement updConnStmt = myCon.prepareStatement("UPDATE connections SET connection_end = ? WHERE connection_id = ?");
+            PreparedStatement updConnStmt = myCon.prepareStatement("UPDATE connection SET connection_end = ? WHERE connection_id = ?");
             updConnStmt.setTimestamp(1, new Timestamp(player.timeShipLogout));
             updConnStmt.setLong(2, player.dbConnectionID);
             updConnStmt.execute();
@@ -1048,7 +1095,7 @@ public class TrekJDBCInterface {
 
     public void loadTemplateKeymaps(TrekPlayer player) {
         try {
-            PreparedStatement retrStoredMapsStmt = myCon.prepareStatement("SELECT ship_macros FROM keymaps WHERE player_id = ? AND " +
+            PreparedStatement retrStoredMapsStmt = myCon.prepareStatement("SELECT ship_macros FROM keymap WHERE player_id = ? AND " +
                     "ship_class = ?");
             retrStoredMapsStmt.setInt(1, player.dbPlayerID);
             retrStoredMapsStmt.setString(2, player.ship.shipClass);
@@ -1096,7 +1143,7 @@ public class TrekJDBCInterface {
         boolean returnValue = false;
 
         try {
-            PreparedStatement isAnon = myCon.prepareStatement("SELECT player_anonymous FROM players WHERE player_id = ?");
+            PreparedStatement isAnon = myCon.prepareStatement("SELECT player_anonymous FROM player WHERE player_id = ?");
             isAnon.setInt(1, playerID);
             rs = isAnon.executeQuery();
             if (rs.next()) {
@@ -1114,7 +1161,7 @@ public class TrekJDBCInterface {
         boolean returnValue = false;
 
         try {
-            PreparedStatement isLocked = myCon.prepareStatement("SELECT player_account_locked FROM players WHERE player_id = ?");
+            PreparedStatement isLocked = myCon.prepareStatement("SELECT player_account_locked FROM player WHERE player_id = ?");
             isLocked.setInt(1, playerID);
             rs = isLocked.executeQuery();
             if (rs.next()) {
@@ -1132,7 +1179,7 @@ public class TrekJDBCInterface {
         String loginMsg = "";
 
         try {
-            PreparedStatement getMsg = myCon.prepareStatement("SELECT player_login_msg FROM players WHERE player_id = ? and player_login_msg IS NOT NULL");
+            PreparedStatement getMsg = myCon.prepareStatement("SELECT player_login_msg FROM player WHERE player_id = ? and player_login_msg IS NOT NULL");
             getMsg.setInt(1, playerID);
             rs = getMsg.executeQuery();
             if (rs.next()) {
@@ -1207,16 +1254,13 @@ public class TrekJDBCInterface {
     }
 
     private String getShipDB() {
-        if (TrekServer.isTeamPlayEnabled()) return "ctfships";
-        return "ships";
+        if (TrekServer.isTeamPlayEnabled()) return "ctfship";
+        return "ship";
     }
 
     private String getShipDB(TrekShip ship) {
-        if (ship.ctfShip) {
-            return "ctfships";
-        }
-
-        return "ships";
+        if (ship.ctfShip) return "ctfship";
+        return "ship";
     }
 
     protected boolean isPlayerAdmin(String playerName) {
@@ -1224,7 +1268,7 @@ public class TrekJDBCInterface {
         try {
             PreparedStatement isAdminStmt =
                     myCon.prepareStatement(
-                            "SELECT player_admin FROM players WHERE player_name = ?");
+                            "SELECT player_admin FROM player WHERE player_name = ?");
             isAdminStmt.setString(1, playerName);
             rs = isAdminStmt.executeQuery();
             if (rs.next()) {
@@ -1240,7 +1284,7 @@ public class TrekJDBCInterface {
     public String getPlayerName(int playerID) {
         String returnValue = "";
         try {
-            PreparedStatement getName = myCon.prepareStatement("SELECT player_name FROM players WHERE player_id = ?");
+            PreparedStatement getName = myCon.prepareStatement("SELECT player_name FROM player WHERE player_id = ?");
             getName.setInt(1, playerID);
             rs = getName.executeQuery();
             if (rs.next()) {
