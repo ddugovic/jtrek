@@ -316,7 +316,6 @@ CREATE INDEX ship_shipgold
 CREATE SEQUENCE planet_seq;
 
 CREATE TABLE planet(
-  planet_id bigint NOT NULL DEFAULT nextval('planet_seq'),
   x integer NOT NULL DEFAULT 0,
   y integer NOT NULL DEFAULT 0,
   z integer NOT NULL DEFAULT 0,
@@ -329,6 +328,7 @@ CREATE TABLE planet(
   delay smallint NOT NULL DEFAULT 0,
   team smallint NOT NULL DEFAULT 0,
   quadrant varchar(10),
+  planet_id bigint NOT NULL DEFAULT nextval('planet_seq'),
   CONSTRAINT pkplanet_planetid PRIMARY KEY (planet_id)
 );
 
