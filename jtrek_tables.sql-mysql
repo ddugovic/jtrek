@@ -338,3 +338,72 @@ INSERT INTO planet VALUES(11795, 25850, 15998, 'Tech Planet', 't', 'C ', '', 200
 INSERT INTO planet VALUES(24970, -21080, -35270, 'Assimilated Planet', 'u', '', '', 2000, 500, 1);
 INSERT INTO planet VALUES(-6060, 19150, 5540, 'Assimilated Planet', 'v', 'FC ', '', 2000, 500, 1);
 UPDATE planet SET quadrant='Delta' WHERE quadrant IS NULL;
+
+CREATE TABLE starbase (
+  starbase_id int(10) unsigned NOT NULL auto_increment,
+  x int(5) NOT NULL default '0',
+  y int(5) NOT NULL default '0',
+  z int(5) NOT NULL default '0',
+  name varchar(100) binary NOT NULL default '',
+  scan varchar(20) binary NOT NULL default '',
+  codes varchar(20) binary NOT NULL default '',
+  range smallint(5) unsigned NOT NULL default '0',
+  damage smallint(5) unsigned NOT NULL default '0',
+  delay smallint(5) unsigned NOT NULL default '0',
+  quadrant varchar(10) binary NOT NULL default '',
+  PRIMARY KEY  (starbase_id)
+) TYPE=MyISAM COMMENT='JTrek Starbase Table';
+
+--Alpha
+INSERT INTO starbase VALUES(-6150, -13432, -300, 'Spacelab Regula 1', '1', 'L M D ', 2000, 100, 1);
+INSERT INTO starbase VALUES(7803, -10300, -6540, 'Starbase 2', '2', 'T ', 2000, 100, 1);
+INSERT INTO starbase VALUES(-6000, 10020, 900, 'Starbase 3', '3', 'L M D ', 2000, 100, 1);
+INSERT INTO starbase VALUES(-11400, 17000, -800, 'Starbase 4', '4', 'T ', 2000, 100, 1);
+INSERT INTO starbase VALUES(-18400, 20730, 5020, 'Babylon 5', '5', 'L M D ', 2000, 100, 1);
+INSERT INTO starbase VALUES(-29600, 17000, -400, 'Starbase 6', '6', 'T ', 2000, 100, 1);
+INSERT INTO starbase VALUES(21800, 16000, -3000, 'Space Station K-7', '7', 'L M D ', 3500, 250, 3);
+INSERT INTO starbase VALUES(28000, 5000, 400, 'Starbase 8', '8', 'T ', 2000, 100, 1);
+INSERT INTO starbase VALUES(33900, -10500, 8030, 'Starbase 9', '9', 'L M D ', 2000, 100, 1);
+INSERT INTO starbase VALUES(24000, -24000, 800, 'Starbase 10', '0', 'T ', 2000, 100, 1);
+INSERT INTO starbase VALUES(134820, -117517, 109320, 'Ursus Outpost', 'u', '', 2000, 100, 1);
+UPDATE starbase SET quadrant='Alpha' WHERE quadrant IS NULL;
+--Beta
+INSERT INTO starbase VALUES(4016, 13407, -8936, 'Starbase 11', '1', 'L M D ', 2000, 100, 1);
+INSERT INTO starbase VALUES(26200, 9680, 6470, 'Starbase 12', '2', 'T ', 2000, 100, 1);
+INSERT INTO starbase VALUES(8150, -10940, -29460, 'Starbase 13', '3', 'L M D ', 2000, 100, 1);
+INSERT INTO starbase VALUES(1340, -24700, 28970, 'Starbase 14', '4', 'T ', 2000, 100, 1);
+INSERT INTO starbase VALUES(-5900, -12870, -27910, 'Starbase 15', '5', 'L M D ', 2000, 100, 1);
+INSERT INTO starbase VALUES(-19792, -15170, -2900, 'Starbase 16', '6', 'T ', 2000, 100, 1);
+INSERT INTO starbase VALUES(-25935, 2440, 2135, 'Starbase 17', '7', 'L M D ', 2000, 100, 1);
+INSERT INTO starbase VALUES(-18913, 11802, -16036, 'Starbase 18', '8', 'T ', 2000, 100, 1);
+INSERT INTO starbase VALUES(-16402, 22795, 9968, 'Starbase 19', '9', 'L M D ', 2000, 100, 1);
+INSERT INTO starbase VALUES(207, 26501, 7573, 'Starbase 20', '0', 'T ', 2000, 100, 1);
+INSERT INTO starbase VALUES(-16420, -1630, 12290, 'Orion Outpost', 'o', 'None ', 2000, 100, 1);
+UPDATE starbase SET quadrant='Beta' WHERE quadrant IS NULL;
+--Gamma
+INSERT INTO starbase VALUES(-10860, 9250, -5420, 'Starbase 21', '1', 'L M D ', 2000, 100, 1);
+INSERT INTO starbase VALUES(26850, 29350, 4140, 'Starbase 22', '2', 'T ', 2000, 100, 1);
+INSERT INTO starbase VALUES(31150, 37900, 3890, 'Starbase 23', '3', 'L M D ', 2000, 100, 1);
+INSERT INTO starbase VALUES(-20590, 1960, -17960, 'Starbase 24', '4', 'T ', 2000, 100, 1);
+INSERT INTO starbase VALUES(9860, 12250, 6840, 'Starbase 25', '5', 'L M D ', 2000, 100, 1);
+INSERT INTO starbase VALUES(27410, 20000, -15710, 'Starbase 26', '6', 'T ', 2000, 100, 1);
+INSERT INTO starbase VALUES(26040, 1450, -1600, 'Starbase 27', '7', 'L M D ', 2000, 100, 1);
+INSERT INTO starbase VALUES(4650, -19120, -28250, 'Starbase 28', '8', 'T ', 2000, 100, 1);
+INSERT INTO starbase VALUES(3600, -11770, -21750, 'Starbase 29', '9', 'L M D ', 2000, 100, 1);
+INSERT INTO starbase VALUES(34050, -10640, 900, 'Starbase 30', '0', 'T ', 2000, 100, 1);
+UPDATE starbase SET quadrant='Gamma' WHERE quadrant IS NULL;
+--Omega
+INSERT INTO starbase VALUES(2399, -5793, 15137, 'Starbase 31', '1', 'L M D ', 2000, 100, 1);
+INSERT INTO starbase VALUES(0, -11585, 11585, 'Starbase 32', '2', 'T ', 2000, 100, 1);
+INSERT INTO starbase VALUES(11585, 0, 11585, 'Starbase 33', '3', 'L M D ', 2000, 100, 1);
+INSERT INTO starbase VALUES(13985, -5793, 6270, 'Starbase 34', '4', 'T ', 2000, 100, 1);
+INSERT INTO starbase VALUES(5793, 13985, 6270, 'Starbase 35', '5', 'L M D ', 2000, 100, 1);
+INSERT INTO starbase VALUES(-5793, 13985, -6270, 'Starbase 36', '6', 'T ', 2000, 100, 1);
+INSERT INTO starbase VALUES(-13985, -5793, -6270, 'Starbase 37', '7', 'L M D ', 2000, 100, 1);
+INSERT INTO starbase VALUES(-11585, 0, -11585, 'Starbase 38', '8', 'T ', 2000, 100, 1);
+INSERT INTO starbase VALUES(0, -11585, -11585, 'Starbase 39', '9', 'L M D ', 2000, 100, 1);
+INSERT INTO starbase VALUES(-2399, -5793, -15137, 'Starbase 40', '0', 'T ', 2000, 100, 1);
+UPDATE starbase SET quadrant='Omega' WHERE quadrant IS NULL;
+--Nu
+INSERT INTO starbase VALUES(0, 0, 0, 'The Flag', 'f', '', 2000, 100, 1);
+UPDATE starbase SET quadrant='Nu' WHERE quadrant IS NULL;

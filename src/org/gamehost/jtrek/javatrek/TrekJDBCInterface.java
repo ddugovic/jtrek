@@ -579,7 +579,7 @@ public class TrekJDBCInterface {
         return updateSuccess;
     }
 
-    // ship_name, and player_id should already be set in Player object
+    // name should already be set in TrekQuadrant object
     public void loadPlanetRecords(TrekQuadrant quadrant) {
         try {
             PreparedStatement readShipStmt =
@@ -622,6 +622,28 @@ public class TrekJDBCInterface {
             }
         } catch (SQLException SQLe) {
             TrekLog.logError("*** ERROR ***   Problem reading planets quadrant: " + quadrant.name);
+            TrekLog.logException(SQLe);
+        }
+    }
+
+    // name should already be set in TrekQuadrant object
+    public void loadStarbaseRecords(TrekQuadrant quadrant) {
+        try {
+            PreparedStatement readShipStmt =
+                    myCon.prepareStatement(
+                            "SELECT x, y, z, name, scan, codes, range, damage, delay FROM starbase WHERE quadrant = ?");
+            readShipStmt.setString(1, quadrant.name.split(" ")[0]);
+            rs = readShipStmt.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("name");
+                int x = rs.getInt("x"), y = rs.getInt("y"), z = rs.getInt("z");
+                String scan = rs.getString("scan");
+                String codes = rs.getString("codes");
+                int range = rs.getInt("range"), damage = rs.getInt("damage"), delay = rs.getInt("delay");
+                quadrant.addObject(new TrekStarbase(x, y, z, name, scan, codes, range, damage, delay));
+            }
+        } catch (SQLException SQLe) {
+            TrekLog.logError("*** ERROR ***   Problem reading starbases quadrant: " + quadrant.name);
             TrekLog.logException(SQLe);
         }
     }
